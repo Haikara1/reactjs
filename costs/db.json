@@ -1,21 +1,56 @@
 {
-    "projects": [],
-    "categories": [
-        {
-            "id": 1,
-            "name": "Infra"
-        },
-        {
-            "id": 2,
-            "name": "Desenvolvimento"
-        },
-        {
-            "id": 3,
-            "name": "Design"
-        },
-        {
-            "id": 4,
-            "name": "Planejamento"
-        }
-    ]
+  "projects": [
+    {
+      "name": "adsfsdf",
+      "budget": "12341234",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 0,
+      "services": [],
+      "id": "ib-rBz10tPM"
+    },
+    {
+      "name": "projeto teste",
+      "budget": "5000",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 0,
+      "services": [],
+      "id": "V2HA-Ah7Na0"
+    },
+    {
+      "name": "projeto teste",
+      "budget": "5000",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 0,
+      "services": [],
+      "id": "HxJS0G55760"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Infra"
+    },
+    {
+      "id": "2",
+      "name": "Desenvolvimento"
+    },
+    {
+      "id": "3",
+      "name": "Design"
+    },
+    {
+      "id": "4",
+      "name": "Planejamento"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
