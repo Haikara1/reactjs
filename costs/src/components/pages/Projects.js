@@ -56,21 +56,6 @@ function Projects() {
         .catch(err => console.log(err))
     }
 
-    // function updateProject(id) {
-
-    //     fetch(`http://localhost:5000/projects/${id}`, {
-    //         method: 'UPDATE',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //     }).then(resp => resp.json())
-    //     .then(data => {
-    //         setProjectUpdate(projects.filter((project) => project.id !==id))
-    //     })
-    //     .catch(err => console.log(err))
-
-    // }
-
     return(
         <div className={styles.project_container}>
             <div className={styles.title_container}>
