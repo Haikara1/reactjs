@@ -1,50 +1,6 @@
 {
   "projects": [
     {
-      "name": "adsfsdf",
-      "budget": "12341234",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 0,
-      "services": [],
-      "id": "ib-rBz10tPM"
-    },
-    {
-      "name": "projeto teste",
-      "budget": "5000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 0,
-      "services": [],
-      "id": "V2HA-Ah7Na0"
-    },
-    {
-      "name": "projeto teste",
-      "budget": "5000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 0,
-      "services": [],
-      "id": "HxJS0G55760"
-    },
-    {
-      "name": "meu projeto 3",
-      "budget": "15000",
-      "category": {
-        "id": "3",
-        "name": "Design"
-      },
-      "cost": 0,
-      "services": [],
-      "id": "zSpmoe-rXI8"
-    },
-    {
       "name": "Novo Projeto",
       "budget": "900",
       "category": {
@@ -54,17 +10,6 @@
       "cost": 0,
       "services": [],
       "id": "Mp9MtJhSVrs"
-    },
-    {
-      "name": "ted gay",
-      "budget": "1000",
-      "category": {
-        "id": "1",
-        "name": "Infra"
-      },
-      "cost": 0,
-      "services": [],
-      "id": "d9UdsvDVCfs"
     }
   ],
   "categories": [
