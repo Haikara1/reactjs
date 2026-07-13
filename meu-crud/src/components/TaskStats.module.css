@@ -1,0 +1,25 @@
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 25px 0;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+
+.stats p {
+    font-weight: bold;
+}
+
+.stats_completed {
+    color: green;
+}
+
+.stats_pending {
+    color: red;
+}
+
+.stats_total {
+    color: rgba(56, 56, 179, 0.678);
+}

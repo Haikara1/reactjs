@@ -1,0 +1,135 @@
+.task {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: white;
+
+    padding: 15px;
+
+    margin-bottom: 15px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    transition: 0.3s;
+
+}
+
+
+.task:hover {
+
+    transform: translateY(-3px);
+
+}
+
+
+
+.content {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.content h3 {
+
+    color: #333;
+
+    font-size: 18px;
+
+}
+
+
+
+.completed {
+
+    text-decoration: line-through;
+
+    opacity: 0.5;
+
+}
+
+
+
+.actions {
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+
+.actions button {
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:7px;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+}
+
+
+.actions button:hover {
+
+    opacity:0.8;
+
+}
+
+
+
+.edit {
+
+    background:#3867e8;
+
+}
+
+
+.remove {
+
+    background:#e63946;
+
+}
+
+
+.save {
+
+    background:#2a9d8f;
+
+}
+
+
+.cancel {
+
+    background:#777;
+
+}
+
+
+
+.editInput {
+
+    padding:8px;
+
+    border-radius:6px;
+
+    border:1px solid #ccc;
+
+    font-size:16px;
+
+}
