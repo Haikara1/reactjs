@@ -2,6 +2,7 @@ import "./App.css"
 
 import useTasks from "./hooks/useTasks"
 
+
 import TaskForm from "./components/TaskForm"
 import TaskList from "./components/TaskList"
 import TaskStats from "./components/TaskStats"
@@ -18,9 +19,11 @@ function App() {
   } = useTasks()
 
 
+
   return (
     <div className="container">
       <h1>Minha Organização</h1>
+
 
       <TaskForm addTask={addTask} />
 
@@ -32,6 +35,7 @@ function App() {
         removeTask={removeTask}
         editTask={editTask}
       />
+
 
 
     </div>
