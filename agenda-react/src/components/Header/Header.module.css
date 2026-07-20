@@ -1,0 +1,14 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header h1 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}

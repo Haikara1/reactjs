@@ -1,0 +1,55 @@
+.day{
+
+    width:100%;
+
+    aspect-ratio:1;
+
+    border:1px solid var(--border-color);
+
+    border-radius:12px;
+
+    background:var(--surface);
+
+    color:var(--text-primary);
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    display:flex;
+    flex-direction: column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+}
+
+.day small {
+  font-size: 0.7rem;
+  margin-top: 4px;
+  overflow: hidden;
+  max-width: 90%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.day:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+}
+
+.today{
+
+    outline:3px solid var(--color-primary);
+
+    outline-offset:2px;
+
+}
