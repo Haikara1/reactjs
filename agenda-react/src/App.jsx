@@ -5,6 +5,8 @@ import Header from "./components/Header/Header";
 import Calendar from "./components/Calendar/Calendar";
 import Modal from "./components/Modal/Modal";
 import ReminderList from "./components/Reminder/ReminderList";
+import filterRemindersByDate from "./utils/filterRemindersByDate";
+import parseDate from "./utils/parseDate";
 
 function App() {
 
@@ -81,33 +83,27 @@ function App() {
     );
   }
 
-  function handleSelectDate(date){
+    function handleSelectDate(date){
 
     setActiveDate(date);
 
-    const formattedDate =
-      date.toISOString().split("T")[0];
-
-
     const remindersOfDay =
-      reminders.filter(
-        reminder =>
-          reminder.date === formattedDate
-      );
-
+        filterRemindersByDate(
+            reminders,
+            date
+        );
 
     if(remindersOfDay.length > 0){
 
-      setSelectedDayReminders(remindersOfDay);
+        setSelectedDayReminders(remindersOfDay);
 
-      return;
+        return;
 
     }
 
-
     setSelectedDate(date);
-  }
 
+}
   function handleNewReminder(){
 
     setSelectedDayReminders([]);
@@ -168,7 +164,7 @@ function App() {
                 setEditingReminder(reminder);
 
                 setSelectedDate(
-                  new Date(reminder.date)
+                  parseDate(reminder.date)
                 );
 
               }}
@@ -190,7 +186,7 @@ function App() {
       <Modal
         selectedDate={
           editingReminder
-            ? new Date(editingReminder.date)
+            ? parseDate(editingReminder.date)
             : selectedDate
         }
 

@@ -2,6 +2,8 @@ import styles from "./Calendar.module.css";
 import { generateCalendar } from "../../utils/generateCalendar";
 
 import CalendarDay from "../CalendarDay/CalendarDay";
+import filterRemindersByDate from "../../utils/filterRemindersByDate";
+import formatDate from "../../utils/formatDate";
 
 function Calendar({
   reminders,
@@ -89,24 +91,21 @@ function Calendar({
 
 
           const isToday =
-            day === today.getDate();
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear();
 
 
-
-          const currentDate = new Date(
-            year,
-            month,
-            day
-          )
-          .toISOString()
-          .split("T")[0];
-
-
-
-          const remindersOfDay = reminders.filter(
-            reminder => reminder.date === currentDate
+          const currentDate = formatDate(
+              new Date(year, month, day)
           );
 
+
+
+            const remindersOfDay = filterRemindersByDate(
+              reminders,
+              new Date(year, month, day)
+            )
 
 
           return (
@@ -124,6 +123,8 @@ function Calendar({
                   month,
                   day
                 );
+                console.log("Calendar clicou:", date);
+                console.log("Dia:", date.getDate());
 
 
                 onSelectDate(date);

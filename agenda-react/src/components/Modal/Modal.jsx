@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
 import styles from "./Modal.module.css"
+import formatDate from "../../utils/formatDate";
 
 function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [color, setColor] = useState("#6366F1")
+    const [recurring, setRecurring] = useState(false)
 
 
     useEffect(() => {
@@ -15,10 +17,12 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
         setTitle(selectedReminder.title)
         setDescription(selectedReminder.description)
         setColor(selectedReminder.color)
+        setRecurring(selectedReminder.recurring ?? false)
     } else {
         setTitle("")
         setDescription("")
         setColor("#6366F1")
+
     }
 
 }, [selectedReminder])
@@ -26,6 +30,9 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
     if (!selectedDate) return null;
 
     function handleSave() {
+        console.log("Modal recebeu:", selectedDate);
+        console.log("Dia recebido:", selectedDate.getDate());
+        console.log("Data formatada:", formatDate(selectedDate));
     if (!title.trim()) return;
 
     const reminder = {
@@ -33,10 +40,11 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
             ? selectedReminder.id
             : Date.now(),
 
-        date: selectedDate.toISOString().split("T")[0],
+        date: formatDate(selectedDate),
         title,
         description,
         color,
+        recurring
     }
 
         onSave(reminder)
@@ -44,6 +52,7 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
         setTitle("")
         setDescription("")
         setColor("#6366F1")
+        setRecurring(false)
     }
 
     function handleDelete(){
@@ -101,6 +110,17 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
                         value={color}
                         onChange={(e) => setColor(e.target.value)}
                     />
+                </label>
+
+                <label className={styles.checkbox}>
+                    <input
+                        type="checkbox"
+                        checked={recurring}
+                        onChange={(e) =>
+                            setRecurring(e.target.checked)
+                        }
+                    />
+                    Repetir todos os anos
                 </label>
 
                 <div className={styles.buttons}>
