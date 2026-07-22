@@ -6,7 +6,8 @@
 
   padding: 20px;
 
-  background: #ffffff;
+  background: var(--surface);
+  color: var(--text-primary);
 
   border-radius: 16px;
 
@@ -32,7 +33,9 @@
 
   border-radius: 12px;
 
-  background: #f8fafc;
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 
   border-left: 5px solid #6366F1;
 }
@@ -45,7 +48,7 @@
 
   font-size: 1.1rem;
 
-  color: #1e293b;
+  color: var(--text-primary);
 
 }
 
@@ -64,6 +67,8 @@
 
 
 .item button {
+
+  margin-left: 10px;
 
   border: none;
 
@@ -110,6 +115,7 @@
 .newButton {
 
   margin-top: 10px;
+  margin-left: 10px;
 
   padding: 12px;
 

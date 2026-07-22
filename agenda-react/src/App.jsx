@@ -25,6 +25,19 @@ function App() {
     new Date()
   );
 
+
+  //DARK MODE (:D) =================================================================
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+
+    return savedTheme === "dark";
+  })
+
+
+  function toggleTheme() {
+    setDarkMode(prev => !prev);
+  }
+  //================================================================================
   function nextMonth(){
 
     setCurrentDate(
@@ -139,9 +152,31 @@ function App() {
     )
   }, [reminders]);
 
+
+  // USEEFFECT DO DARK MODE
+  useEffect(() => {
+
+  localStorage.setItem(
+    "theme",
+    darkMode ? "dark" : "light"
+  );
+
+
+  document.body.className = darkMode
+    ? "dark"
+    : "";
+
+  }, [darkMode]);
+
   return (
     <>
-      <Header />
+
+
+      <Header
+        darkMode={darkMode}
+        onToggleTheme={toggleTheme}
+      />
+
 
       <Calendar
         reminders={reminders}
