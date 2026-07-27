@@ -2,6 +2,7 @@
 
 
 import { useState, useEffect } from "react";
+import { startNotificationScheduler } from "./services/notificationScheduler";
 
 
 import Header from "./components/Header/Header";
@@ -10,6 +11,7 @@ import Modal from "./components/Modal/Modal";
 import ReminderList from "./components/Reminder/ReminderList";
 import filterRemindersByDate from "./utils/filterRemindersByDate";
 import parseDate from "./utils/parseDate";
+import { requestPeremission, showReminderNotification } from "./services/notificationService";
 
 function App() {
 
@@ -170,6 +172,15 @@ function App() {
     : "";
 
   }, [darkMode]);
+
+  // NOTIFICATIONS USEEFFECT
+  useEffect(() => {
+      requestPeremission()
+  }, [])
+
+  useEffect(() => {
+    startNotificationScheduler()
+  }, [])
 
   return (
     <>

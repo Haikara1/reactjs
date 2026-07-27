@@ -1,5 +1,6 @@
 import styles from "./Header.module.css";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import { showReminderNotification } from "../../services/notificationService";
 
 function Header({ darkMode, onToggleTheme }) {
     return (
@@ -12,6 +13,15 @@ function Header({ darkMode, onToggleTheme }) {
                 darkMode={darkMode}
                 onToggleTheme={onToggleTheme}
             />
+            <button
+                onClick={() => showReminderNotification({
+                    title: "Agenda React",
+                    description: "Teste de notificação"
+                }
+                )}
+            >
+                Testar Notificação
+            </button>
         </header>
     );
 }
