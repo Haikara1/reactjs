@@ -32,7 +32,8 @@
 }
 
 .modal input,
-.modal textarea {
+.modal textarea,
+.modal select {
     padding: .8rem;
     border: 1px solid var(--border-color);
     background: var(--background);

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import styles from "./Modal.module.css"
 import formatDate from "../../utils/formatDate";
+import { notificationRepeatOptions } from "../../constants/notificationOptions";
+import { notificationBeforeOptions } from "../../constants/notificationBeforeOptions";
 
 function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
 
@@ -9,6 +11,11 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
     const [description, setDescription] = useState("")
     const [color, setColor] = useState("#6366F1")
     const [recurring, setRecurring] = useState(false)
+
+    const [notificationEnabled, setNotificationEnabled] = useState(false)
+    const [notificationTime, setNotificationTime] = useState("09:00")
+    const [notificationRepeat, setNotificationRepeat] = useState("none")
+    const [notificationBefore, setNotificationBefore] = useState("0m")
 
 
     useEffect(() => {
@@ -24,6 +31,18 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
         setColor("#6366F1")
 
     }
+
+    const notification = selectedReminder?.notification ?? {
+        enabled: false,
+        time: "09:00",
+        before: "0m",
+        repeat: "none"
+    }
+
+    setNotificationEnabled(notification.enabled);
+    setNotificationTime(notification.time);
+    setNotificationBefore(notification.before ?? "0m");
+    setNotificationRepeat(notification.repeat)
 
 }, [selectedReminder])
 
@@ -44,15 +63,29 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
         title,
         description,
         color,
-        recurring
+        recurring,
+        notification: {
+            enabled: notificationEnabled,
+            time: notificationTime,
+            before: notificationBefore,
+            repeat: notificationRepeat
+        },
+
     }
 
+
         onSave(reminder)
+
 
         setTitle("")
         setDescription("")
         setColor("#6366F1")
         setRecurring(false)
+
+        setNotificationEnabled(false);
+        setNotificationTime("09:00");
+        setNotificationBefore("0m");
+        setNotificationRepeat("none");
     }
 
     function handleDelete(){
@@ -122,6 +155,84 @@ function Modal({ selectedDate, onClose, onSave, selectedReminder, onDelete }) {
                     />
                     Repetir todos os anos
                 </label>
+
+                <hr />
+                <h3>🔔 Notificações</h3>
+
+                <label className={styles.checkbox}>
+                    <input
+                        type="checkbox"
+                        checked={notificationEnabled}
+                        onChange={(e) => setNotificationEnabled(e.target.checked)}
+
+                    />
+
+                    Ativar Notificações
+                </label>
+                {
+                    notificationEnabled && (
+                        <>
+                            <label>
+                                Horário
+
+                                <input
+                                    type="time"
+                                    value={notificationTime}
+                                    onChange={(e) => setNotificationTime(e.target.value)}
+
+                                />
+                            </label>
+
+                            <label>
+                                Primeira Notificação
+
+                                <select
+                                    value={notificationBefore}
+                                    onChange={(e) => setNotificationBefore(e.target.value)}
+
+                                >
+                                    {
+                                       notificationBeforeOptions.map(option => (
+
+                                            <option
+                                                key={option.value}
+                                                value={option.value}
+                                            >
+                                                {option.label}
+
+                                                </option>
+                                       ))
+                                    }
+
+
+
+                                </select>
+                            </label>
+
+                            <label>
+                                Repetir
+
+                                <select
+                                    value={notificationRepeat}
+                                    onChange={(e) => setNotificationRepeat(e.target.value)}
+                                >
+                                    {
+                                        notificationRepeatOptions.map(option =>(
+                                            <option
+                                                key={option.value}
+                                                value={option.value}
+                                            >
+                                                {option.label}
+                                            </option>
+                                        ))
+                                    }
+
+                                </select>
+                            </label>
+                        </>
+                    )
+                }
+
 
                 <div className={styles.buttons}>
 

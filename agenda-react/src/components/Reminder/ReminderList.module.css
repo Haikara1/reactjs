@@ -140,3 +140,19 @@
   opacity: 0.85;
 
 }
+
+.notificationInfo {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .3rem;
+
+    margin-top: .75rem;
+
+    font-size: .9rem;
+
+    color: var(--text-secondary);
+
+}

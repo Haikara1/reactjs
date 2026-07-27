@@ -1,3 +1,6 @@
+// ASSIM QUE CHEGAR NA PARTE DE POLIMENTOS DO APP, NOS VAMOS CRIAR UM MENU LATERAL COM MAIS DETALHES.
+
+
 import { useState, useEffect } from "react";
 
 
