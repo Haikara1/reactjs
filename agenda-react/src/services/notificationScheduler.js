@@ -1,58 +1,111 @@
-import { showReminderNotification } from "./notificationService";
+import {
+    getReminders,
+    saveReminders
+} from "./notificationStorage";
 
-export function startNotificationScheduler() {
+import {
+    processReminderNotifications
+} from "./notificationEngine";
 
-    setInterval(() => {
 
-        const savedReminders = localStorage.getItem("reminders")
+let schedulerInterval = null;
 
-        if(!savedReminders) return
 
-        const reminders = JSON.parse(savedReminders)
+/**
+ * Inicia o Scheduler
+ */
+export function startNotificationScheduler(
+    interval = 30000
+) {
 
-        reminders.forEach(reminder => {
-            checkReminder(reminder)
-        });
+    // Evita múltiplos schedulers rodando
+    if (schedulerInterval) {
+        console.warn(
+            "Notification Scheduler já está ativo."
+        );
 
-    }, 30000)
-
-}
-
-function checkReminder(reminder) {
-
-    if(!reminder.notification?.enabled) {
         return;
     }
 
-    const now = new Date()
-
-    const reminderDate = new Date(
-        `${reminder.date}T${reminder.notification.time}`
-    )
-
-    const difference = reminderDate - now;
-
-    if(difference <= 30000 && difference > 0) {
-        showReminderNotification(reminder)
-    }
-
-}
-
-function verifyReminder(reminder){
 
     console.log(
-        "VERIFICANDO:",
-        reminder
-    )
+        "Notification Scheduler iniciado."
+    );
 
 
-    if(!reminder.notification?.enabled){
+    schedulerInterval = setInterval(() => {
+
+        runNotificationCycle();
+
+    }, interval);
+
+}
+
+
+
+/**
+ * Executa um ciclo de verificação
+ */
+function runNotificationCycle() {
+
+    const reminders = getReminders();
+
+
+    let hasChanges = false;
+
+
+    const updatedReminders = reminders.map(
+        reminder => {
+
+            const result =
+                processReminderNotifications(
+                    reminder
+                );
+
+
+            if (result.updated) {
+                hasChanges = true;
+            }
+
+
+            return result.reminder;
+
+        }
+    );
+
+
+    if (hasChanges) {
+
+        saveReminders(
+            updatedReminders
+        );
+
+    }
+
+}
+
+
+
+/**
+ * Para o Scheduler
+ */
+export function stopNotificationScheduler() {
+
+    if (!schedulerInterval) {
         return;
     }
 
-  
-}
 
-export {
+    clearInterval(
+        schedulerInterval
+    );
+
+
+    schedulerInterval = null;
+
+
+    console.log(
+        "Notification Scheduler parado."
+    );
 
 }

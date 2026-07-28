@@ -2,7 +2,11 @@
 
 
 import { useState, useEffect } from "react";
-import { startNotificationScheduler } from "./services/notificationScheduler";
+
+import {
+  startNotificationScheduler,
+  stopNotificationScheduler
+} from "./services/notificationScheduler";
 
 
 import Header from "./components/Header/Header";
@@ -11,38 +15,56 @@ import Modal from "./components/Modal/Modal";
 import ReminderList from "./components/Reminder/ReminderList";
 import filterRemindersByDate from "./utils/filterRemindersByDate";
 import parseDate from "./utils/parseDate";
-import { requestPeremission, showReminderNotification } from "./services/notificationService";
+import { requestPeremission } from "./services/notificationService";
+
 
 function App() {
+
 
   const [editingReminder, setEditingReminder] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null);
   const [activeDate, setActiveDate] = useState(null);
   const [selectedDayReminders, setSelectedDayReminders] = useState([]);
+
+
   const [reminders, setReminders] = useState(() => {
+
     const savedReminders = localStorage.getItem("reminders")
 
     return savedReminders
     ? JSON.parse(savedReminders)
     : [];
+
   })
+
+
   const [currentDate, setCurrentDate] = useState(
     new Date()
   );
 
 
-  //DARK MODE (:D) =================================================================
+
+  // DARK MODE (:D) =================================================================
+
   const [darkMode, setDarkMode] = useState(() => {
+
     const savedTheme = localStorage.getItem("theme");
 
     return savedTheme === "dark";
+
   })
 
 
   function toggleTheme() {
+
     setDarkMode(prev => !prev);
+
   }
+
   //================================================================================
+
+
+
   function nextMonth(){
 
     setCurrentDate(
@@ -52,7 +74,9 @@ function App() {
         1
       )
     );
+
   }
+
 
 
   function previousMonth(){
@@ -64,52 +88,71 @@ function App() {
         1
       )
     );
+
   }
+
+
 
   function goToToday(){
 
-  setCurrentDate(new Date());
+    setCurrentDate(new Date());
 
-}
+  }
+
+
 
   function addReminder(reminder) {
+
     setReminders((prev) => [...prev, reminder]);
 
     setSelectedDate(null);
+
     setSelectedDayReminders([]);
+
   }
+
+
 
   function updateReminder(updatedReminder) {
 
-  setReminders((prev) =>
-    prev.map((reminder) =>
-      reminder.id === updatedReminder.id
-        ? updatedReminder
-        : reminder
-    )
-  );
+    setReminders((prev) =>
+      prev.map((reminder) =>
+        reminder.id === updatedReminder.id
+          ? updatedReminder
+          : reminder
+      )
+    );
 
 
-  setEditingReminder(null);
-  setSelectedDate(null);
+    setEditingReminder(null);
 
-}
+    setSelectedDate(null);
+
+  }
+
+
 
   function deleteReminder(id) {
+
     setReminders((prev) =>
       prev.filter((reminder) => reminder.id !== id)
     );
+
   }
 
-    function handleSelectDate(date){
+
+
+  function handleSelectDate(date){
 
     setActiveDate(date);
+
 
     const remindersOfDay =
         filterRemindersByDate(
             reminders,
             date
         );
+
 
     if(remindersOfDay.length > 0){
 
@@ -119,9 +162,13 @@ function App() {
 
     }
 
+
     setSelectedDate(date);
 
-}
+  }
+
+
+
   function handleNewReminder(){
 
     setSelectedDayReminders([]);
@@ -130,57 +177,100 @@ function App() {
 
   }
 
-  useEffect(() => {
-
-  if(selectedDayReminders.length === 0)
-    return;
-
-
-  const updatedList = reminders.filter(
-    reminder =>
-      reminder.date ===
-      selectedDayReminders[0].date
-  );
-
-
-  setSelectedDayReminders(updatedList);
-
-
-}, [reminders]);
 
 
 
   useEffect(() => {
+
+    if(selectedDayReminders.length === 0)
+      return;
+
+
+    const updatedList = reminders.filter(
+      reminder =>
+        reminder.date ===
+        selectedDayReminders[0].date
+    );
+
+
+    setSelectedDayReminders(updatedList);
+
+
+  }, [reminders]);
+
+
+
+
+
+  useEffect(() => {
+
     localStorage.setItem(
       "reminders",
       JSON.stringify(reminders)
     )
+
+
   }, [reminders]);
 
 
+
+
+
   // USEEFFECT DO DARK MODE
+
   useEffect(() => {
 
-  localStorage.setItem(
-    "theme",
-    darkMode ? "dark" : "light"
-  );
+
+    localStorage.setItem(
+      "theme",
+      darkMode ? "dark" : "light"
+    );
 
 
-  document.body.className = darkMode
-    ? "dark"
-    : "";
+    document.body.className = darkMode
+      ? "dark"
+      : "";
+
 
   }, [darkMode]);
 
-  // NOTIFICATIONS USEEFFECT
-  useEffect(() => {
-      requestPeremission()
-  }, [])
+
+
+
+
+  // NOTIFICATIONS PERMISSION
 
   useEffect(() => {
-    startNotificationScheduler()
+
+      requestPeremission()
+
   }, [])
+
+
+
+
+
+  // NOTIFICATION SCHEDULER
+
+  useEffect(() => {
+
+
+    startNotificationScheduler();
+
+
+
+    return () => {
+
+      stopNotificationScheduler();
+
+    };
+
+
+  }, [])
+
+
+
+
 
   return (
     <>
@@ -192,57 +282,90 @@ function App() {
       />
 
 
+
       <Calendar
+
         reminders={reminders}
+
         onSelectDate={handleSelectDate}
+
         onDeleteReminder={deleteReminder}
+
         currentDate={currentDate}
+
         onNextMonth={nextMonth}
+
         onPreviousMonth={previousMonth}
+
         onToday={goToToday}
+
       />
-        {
-          selectedDayReminders.length > 0 && (
-
-            <ReminderList
-              reminders={selectedDayReminders}
-              onNew={handleNewReminder}
-
-              onEdit={(reminder)=>{
-
-                setEditingReminder(reminder);
-
-                setSelectedDate(
-                  parseDate(reminder.date)
-                );
-
-              }}
 
 
-              onDelete={(id)=>{
 
-                deleteReminder(id);
+      {
+        selectedDayReminders.length > 0 && (
 
-                setSelectedDayReminders([]);
+          <ReminderList
 
-              }}
+            reminders={selectedDayReminders}
 
-            />
+            onNew={handleNewReminder}
 
-          )
-        }
+
+            onEdit={(reminder)=>{
+
+
+              setEditingReminder(reminder);
+
+
+              setSelectedDate(
+                parseDate(reminder.date)
+              );
+
+
+            }}
+
+
+
+            onDelete={(id)=>{
+
+
+              deleteReminder(id);
+
+
+              setSelectedDayReminders([]);
+
+
+            }}
+
+
+          />
+
+        )
+      }
+
+
 
       <Modal
+
         selectedDate={
           editingReminder
             ? parseDate(editingReminder.date)
             : selectedDate
         }
 
+
+
         onClose={() => {
+
           setSelectedDate(null)
+
           setEditingReminder(null)
+
         }}
+
+
 
         onSave={
           editingReminder
@@ -250,12 +373,22 @@ function App() {
             : addReminder
         }
 
+
+
         selectedReminder={editingReminder}
 
+
+
         onDelete={deleteReminder}
+
       />
+
+
     </>
+
   );
+
 }
+
 
 export default App;

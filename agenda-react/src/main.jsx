@@ -5,9 +5,29 @@ import App from './App.jsx'
 import "./styles/global.css"
 import "./styles/variables.css"
 import "./styles/themes.css"
+import { registerSW } from "virtual:pwa-register"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
   </StrictMode>,
 )
+
+registerSW({
+    onNeedRefresh(){
+
+        console.log(
+            "Nova versão disponível"
+        )
+
+    },
+
+    onOfflineReady(){
+
+        console.log(
+            "Aplicativo pronto offline"
+        )
+
+    }
+
+})
