@@ -15,7 +15,7 @@ import Modal from "./components/Modal/Modal";
 import ReminderList from "./components/Reminder/ReminderList";
 import filterRemindersByDate from "./utils/filterRemindersByDate";
 import parseDate from "./utils/parseDate";
-import { requestPeremission } from "./services/notificationService";
+import { requestPermission } from "./services/notificationService";
 
 
 function App() {
@@ -242,7 +242,7 @@ function App() {
 
   useEffect(() => {
 
-      requestPeremission()
+      requestPermission()
 
   }, [])
 

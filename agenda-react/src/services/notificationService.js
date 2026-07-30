@@ -1,72 +1,136 @@
 function isSupported() {
-    return "Notification" in window;
+
+    return (
+        "Notification" in window &&
+        "serviceWorker" in navigator
+    );
+
 }
 
-async function requestPeremission() {
+async function requestPermission() {
 
-    if(!isSupported()) {
+    if (!isSupported()) {
+        console.log("Notificações não suportadas.");
         return false;
     }
 
-    if(Notification.permission === "granted") {
+    if (Notification.permission === "granted") {
+        console.log("Permissão já concedida.");
         return true;
     }
 
-    if(Notification.permission === "denied") {
+    if (Notification.permission === "denied") {
+        console.log("Permissão negada.");
         return false;
     }
 
-    const permission = await Notification.requestPermission();
-}
-
-function showReminderNotification(reminder) {
+    const permission =
+        await Notification.requestPermission();
 
     console.log(
-        "REMINDER RECEBIDO:",
-        reminder
-    )
+        "Resultado da permissão:",
+        permission
+    );
 
+    return permission === "granted";
 
-    if(!("Notification" in window)) {
-        console.log("Navegador não suporta notificações")
-        return
+}
+
+async function showReminderNotification(reminder) {
+
+    console.log("================================");
+    console.log("INICIANDO TESTE DE NOTIFICAÇÃO");
+    console.log("Reminder:", reminder);
+
+    console.log(
+        "Notification.permission:",
+        Notification.permission
+    );
+
+    console.log(
+        "navigator.serviceWorker:",
+        navigator.serviceWorker
+    );
+
+    if (!isSupported()) {
+
+        console.error(
+            "Este navegador não suporta notificações."
+        );
+
+        return;
+
     }
 
+    if (Notification.permission !== "granted") {
 
-    new Notification(
-        reminder.title || "Lembrete",
-        {
-            body:
-                reminder.description ||
-                "Você possui um lembrete.",
+        console.error(
+            "Permissão não concedida."
+        );
 
-            icon: "/logo192.png"
-        }
-    )
+        return;
+
+    }
+
+    try {
+
+        console.log(
+            "Aguardando Service Worker..."
+        );
+
+        const registration =
+            await navigator.serviceWorker.ready;
+
+        console.log(
+            "Service Worker pronto:",
+            registration
+        );
+
+        await registration.showNotification(
+
+            reminder.title || "Lembrete",
+
+            {
+
+                body:
+                    reminder.description ||
+                    "Você possui um lembrete.",
+
+                icon: "./icon-192.png",
+
+                badge: "./icon-192.png",
+
+                vibrate: [200, 100, 200],
+
+                tag: "agenda-react"
+
+            }
+
+        );
+
+        console.log(
+            "✅ NOTIFICAÇÃO ENVIADA COM SUCESSO"
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ ERRO AO ENVIAR NOTIFICAÇÃO"
+        );
+
+        console.error(error);
+
+    }
+
 }
-
-// function showReminderNotification(reminder) {
-//     if(!("Notification" in window)) {
-//         console.log("Navegador não suporta notificações")
-//         return
-//     }
-
-//     if(!reminder) {
-//         console.log("Nenhum Lembrete recebido")
-//         return
-//     }
-
-//     new Notification(
-//         reminder.title || "Lembrete",
-//         {
-//             body: reminder.description || "Você possui um lembrete.",
-//             icon: "/logo192.png"
-//         }
-//     )
-// }
 
 export {
+
     isSupported,
-    requestPeremission,
+
+    requestPermission,
+
     showReminderNotification
-}
+
+};
