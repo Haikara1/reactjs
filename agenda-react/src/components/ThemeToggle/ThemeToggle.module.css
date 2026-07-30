@@ -96,3 +96,15 @@
     }
 
 }
+
+.button:focus-visible {
+
+    outline:
+
+        3px solid var(--color-info);
+
+    outline-offset:
+
+        3px;
+
+}
