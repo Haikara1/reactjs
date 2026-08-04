@@ -370,3 +370,49 @@
     }
 
 }
+
+/* ==========================================================
+   MODAL HEADER
+========================================================== */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:1rem;
+
+}
+
+/* ==========================================================
+   CARD DAS NOTIFICAÇÕES
+========================================================== */
+
+.notificationCard{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1rem;
+
+    padding:1rem;
+
+    border-radius:16px;
+
+    background:var(--background);
+
+    border:1px solid var(--border-color);
+
+}
+
+.notificationCard h3{
+
+    margin:0;
+
+    color:var(--text-primary);
+
+}

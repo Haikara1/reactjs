@@ -153,3 +153,63 @@
     }
 
 }
+
+/* ==========================================================
+   DAY NUMBER
+========================================================== */
+
+.dayNumber{
+
+    font-size: clamp(.9rem,2vw,1.1rem);
+
+    font-weight:700;
+
+}
+
+/* ==========================================================
+   BADGE
+========================================================== */
+
+.badge{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.3rem;
+
+    margin-top:.2rem;
+
+    padding:.15rem .45rem;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(4px);
+
+}
+
+.dot{
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:#ffffff;
+
+}
+
+.badge small{
+
+    color:#ffffff;
+
+    font-size:.68rem;
+
+    font-weight:700;
+
+    line-height:1;
+
+}

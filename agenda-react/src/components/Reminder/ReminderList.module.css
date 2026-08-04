@@ -226,3 +226,87 @@
     }
 
 }
+
+/* ==========================================================
+   TÍTULO
+========================================================== */
+
+.title{
+
+    margin:0;
+
+    font-size:clamp(1.2rem,3vw,1.6rem);
+
+    color:var(--text-primary);
+
+}
+
+/* ==========================================================
+   CABEÇALHO DO CARD
+========================================================== */
+
+.header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.75rem;
+
+}
+
+.color{
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+
+    box-shadow:0 0 0 3px rgba(0,0,0,.08);
+
+}
+
+.content{
+
+    flex:1;
+
+}
+
+.description{
+
+    margin-top:.5rem;
+
+}
+
+.actions{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.75rem;
+
+}
+
+@media (max-width:767px){
+
+    .actions{
+
+        margin-top:1rem;
+
+    }
+
+}
+
+@media (min-width:768px){
+
+    .actions{
+
+        min-width:170px;
+
+    }
+
+}

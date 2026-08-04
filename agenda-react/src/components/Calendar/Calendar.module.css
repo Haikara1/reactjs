@@ -11,6 +11,7 @@
     color: var(--text-primary);
 }
 
+
 /* ==========================================================
    HEADER
 ========================================================== */
@@ -19,27 +20,30 @@
 
     display: flex;
 
-    flex-wrap: wrap;
+    align-items: center;
 
     justify-content: center;
-
-    align-items: center;
 
     gap: .75rem;
 
     margin-bottom: 1.5rem;
 
+    flex-wrap: wrap;
+
 }
+
 
 .header h2 {
 
-    flex: 1 1 100%;
+    flex: 1;
+
+    min-width: 0;
 
     text-align: center;
 
     margin: 0;
 
-    font-size: clamp(1.3rem, 4vw, 2rem);
+    font-size: clamp(1.1rem, 4vw, 2rem);
 
     font-weight: 700;
 
@@ -47,7 +51,10 @@
 
     color: var(--text-primary);
 
+    white-space: nowrap;
+
 }
+
 
 /* ==========================================================
    BOTÕES
@@ -68,6 +75,7 @@
 
 }
 
+
 .navButton {
 
     width: 44px;
@@ -81,6 +89,7 @@
     font-size: 1rem;
 
 }
+
 
 .todayButton {
 
@@ -96,6 +105,7 @@
 
 }
 
+
 .navButton:hover,
 .todayButton:hover {
 
@@ -105,12 +115,14 @@
 
 }
 
+
 .navButton:active,
 .todayButton:active {
 
     transform: scale(.97);
 
 }
+
 
 .navButton:focus-visible,
 .todayButton:focus-visible {
@@ -120,6 +132,7 @@
     outline-offset: 3px;
 
 }
+
 
 /* ==========================================================
    WEEKDAYS
@@ -145,6 +158,7 @@
 
 }
 
+
 /* ==========================================================
    GRID
 ========================================================== */
@@ -159,11 +173,13 @@
 
 }
 
+
 .empty {
 
     aspect-ratio: 1;
 
 }
+
 
 /* ==========================================================
    TABLET
@@ -171,27 +187,31 @@
 
 @media (min-width: 768px) {
 
+
     .calendar {
 
         padding: 1.5rem;
 
     }
 
+
     .header {
 
         flex-wrap: nowrap;
-
-        justify-content: center;
 
         gap: 1rem;
 
     }
 
+
     .header h2 {
 
         flex: initial;
 
+        min-width: auto;
+
     }
+
 
     .grid {
 
@@ -201,17 +221,20 @@
 
 }
 
+
 /* ==========================================================
    DESKTOP
 ========================================================== */
 
 @media (min-width: 1024px) {
 
+
     .calendar {
 
         padding: 2rem;
 
     }
+
 
     .grid {
 
@@ -221,15 +244,56 @@
 
 }
 
+
 /* ==========================================================
    DESKTOP LARGE
 ========================================================== */
 
 @media (min-width: 1440px) {
 
+
     .calendar {
 
         max-width: 1300px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE PEQUENO
+========================================================== */
+
+@media (max-width: 380px) {
+
+
+    .header {
+
+        gap: .5rem;
+
+    }
+
+
+    .navButton {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+
+    .todayButton {
+
+        width: 100%;
+
+    }
+
+
+    .header h2 {
+
+        font-size: 1.15rem;
 
     }
 

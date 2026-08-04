@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import styles from "./Modal.module.css";
 
 import formatDate from "../../utils/formatDate";
@@ -31,11 +30,8 @@ function Modal({
 }) {
 
     const [title, setTitle] = useState("");
-
     const [description, setDescription] = useState("");
-
     const [color, setColor] = useState(DEFAULT_COLOR);
-
     const [recurring, setRecurring] = useState(false);
 
     const [notificationEnabled, setNotificationEnabled] =
@@ -50,43 +46,59 @@ function Modal({
     const [notificationRepeat, setNotificationRepeat] =
         useState(DEFAULT_NOTIFICATION.repeat);
 
+
+    // FECHAR MODAL COM TECLA ESC
+    useEffect(() => {
+
+        function handleKeyDown(event) {
+
+            if (event.key === "Escape") {
+
+                onClose();
+
+            }
+
+        }
+
+
+        document.addEventListener(
+            "keydown",
+            handleKeyDown
+        );
+
+
+        return () => {
+
+            document.removeEventListener(
+                "keydown",
+                handleKeyDown
+            );
+
+        };
+
+
+    }, [onClose]);
+
+
+
     useEffect(() => {
 
         if (selectedReminder) {
 
             setTitle(selectedReminder.title);
-
             setDescription(selectedReminder.description);
-
             setColor(selectedReminder.color);
-
-            setRecurring(
-                selectedReminder.recurring ?? false
-            );
+            setRecurring(selectedReminder.recurring ?? false);
 
             const notification = {
-
                 ...DEFAULT_NOTIFICATION,
-
                 ...selectedReminder.notification
-
             };
 
-            setNotificationEnabled(
-                notification.enabled
-            );
-
-            setNotificationTime(
-                notification.time
-            );
-
-            setNotificationBefore(
-                notification.before
-            );
-
-            setNotificationRepeat(
-                notification.repeat
-            );
+            setNotificationEnabled(notification.enabled);
+            setNotificationTime(notification.time);
+            setNotificationBefore(notification.before);
+            setNotificationRepeat(notification.repeat);
 
         } else {
 
@@ -96,44 +108,31 @@ function Modal({
 
     }, [selectedReminder]);
 
+
+
     function resetForm() {
 
         setTitle("");
-
         setDescription("");
-
         setColor(DEFAULT_COLOR);
-
         setRecurring(false);
 
-        setNotificationEnabled(
-            DEFAULT_NOTIFICATION.enabled
-        );
-
-        setNotificationTime(
-            DEFAULT_NOTIFICATION.time
-        );
-
-        setNotificationBefore(
-            DEFAULT_NOTIFICATION.before
-        );
-
-        setNotificationRepeat(
-            DEFAULT_NOTIFICATION.repeat
-        );
+        setNotificationEnabled(DEFAULT_NOTIFICATION.enabled);
+        setNotificationTime(DEFAULT_NOTIFICATION.time);
+        setNotificationBefore(DEFAULT_NOTIFICATION.before);
+        setNotificationRepeat(DEFAULT_NOTIFICATION.repeat);
 
     }
+
+
 
     function buildReminder() {
 
         return {
 
-            id:
-                selectedReminder?.id ??
-                Date.now(),
+            id: selectedReminder?.id ?? Date.now(),
 
-            date:
-                formatDate(selectedDate),
+            date: formatDate(selectedDate),
 
             title,
 
@@ -145,23 +144,16 @@ function Modal({
 
             notification: {
 
-                enabled:
-                    notificationEnabled,
+                enabled: notificationEnabled,
 
-                time:
-                    notificationTime,
+                time: notificationTime,
 
-                before:
-                    notificationBefore,
+                before: notificationBefore,
 
-                repeat:
-                    notificationRepeat,
+                repeat: notificationRepeat,
 
                 lastNotification:
-                    selectedReminder
-                        ?.notification
-                        ?.lastNotification
-                    ?? null
+                    selectedReminder?.notification?.lastNotification ?? null
 
             }
 
@@ -169,62 +161,70 @@ function Modal({
 
     }
 
+
+
     function handleSave() {
 
-        if (!title.trim()) {
-            return;
-        }
+        if (!title.trim()) return;
 
-        const reminder =
-            buildReminder();
-
-        onSave(reminder);
+        onSave(buildReminder());
 
         resetForm();
 
     }
 
+
+
     function handleDelete() {
 
-        if (!selectedReminder) {
-            return;
-        }
+        if (!selectedReminder) return;
 
-        onDelete(
-            selectedReminder.id
-        );
+        onDelete(selectedReminder.id);
 
         onClose();
 
     }
 
-    if (!selectedDate) {
-        return null;
-    }
+
+
+    if (!selectedDate) return null;
+
+
 
     return (
-        <div className={styles.overlay}>
 
-            <div className={styles.modal}>
+        <div
+            className={styles.overlay}
+            onClick={onClose}
+        >
 
-                <h2>
+            <div
+                className={styles.modal}
+                onClick={(e) => e.stopPropagation()}
+            >
 
-                    {
-                        selectedReminder
-                            ? "Editar Lembrete"
-                            : "Novo Lembrete"
-                    }
+                <div className={styles.header}>
 
-                </h2>
+                    <div>
 
-                <p>
+                        <h2>
 
-                    Data{" "}
-                    {selectedDate.toLocaleDateString(
-                        "pt-BR"
-                    )}
+                            {selectedReminder
+                                ? "Editar lembrete"
+                                : "Novo lembrete"}
 
-                </p>
+                        </h2>
+
+                        <p>
+
+                            {selectedDate.toLocaleDateString("pt-BR")}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
 
                 <label>
 
@@ -236,10 +236,12 @@ function Modal({
                         onChange={(e) =>
                             setTitle(e.target.value)
                         }
-                        placeholder="Ex.: Seu Aniversário"
+                        placeholder="Ex.: Consulta médica"
                     />
 
                 </label>
+
+
 
                 <label>
 
@@ -248,14 +250,14 @@ function Modal({
                     <textarea
                         value={description}
                         onChange={(e) =>
-                            setDescription(
-                                e.target.value
-                            )
+                            setDescription(e.target.value)
                         }
-                        placeholder="Digite uma descrição..."
+                        placeholder="Adicione uma descrição..."
                     />
 
                 </label>
+
+
 
                 <label>
 
@@ -270,15 +272,16 @@ function Modal({
                     />
 
                 </label>
-                                <label className={styles.checkbox}>
+
+
+
+                <label className={styles.checkbox}>
 
                     <input
                         type="checkbox"
                         checked={recurring}
                         onChange={(e) =>
-                            setRecurring(
-                                e.target.checked
-                            )
+                            setRecurring(e.target.checked)
                         }
                     />
 
@@ -286,65 +289,68 @@ function Modal({
 
                 </label>
 
-                <hr />
 
-                <h3>
-                    🔔 Notificações
-                </h3>
 
-                <label className={styles.checkbox}>
+                <div className={styles.notificationCard}>
 
-                    <input
-                        type="checkbox"
-                        checked={notificationEnabled}
-                        onChange={(e) =>
-                            setNotificationEnabled(
-                                e.target.checked
-                            )
-                        }
-                    />
+                    <h3>🔔 Notificações</h3>
 
-                    Ativar notificações
 
-                </label>
+                    <label className={styles.checkbox}>
 
-                {
-                    notificationEnabled && (
+                        <input
+                            type="checkbox"
+                            checked={notificationEnabled}
+                            onChange={(e) =>
+                                setNotificationEnabled(
+                                    e.target.checked
+                                )
+                            }
+                        />
 
-                        <>
+                        Ativar notificações
 
-                            <label>
+                    </label>
 
-                                Horário
 
-                                <input
-                                    type="time"
-                                    value={notificationTime}
-                                    onChange={(e) =>
-                                        setNotificationTime(
-                                            e.target.value
-                                        )
-                                    }
-                                />
+                    {
+                        notificationEnabled && (
 
-                            </label>
+                            <>
 
-                            <label>
+                                <label>
 
-                                Primeira notificação
+                                    Horário
 
-                                <select
-                                    value={notificationBefore}
-                                    onChange={(e) =>
-                                        setNotificationBefore(
-                                            e.target.value
-                                        )
-                                    }
-                                >
+                                    <input
+                                        type="time"
+                                        value={notificationTime}
+                                        onChange={(e) =>
+                                            setNotificationTime(
+                                                e.target.value
+                                            )
+                                        }
+                                    />
 
-                                    {
-                                        notificationBeforeOptions.map(
-                                            (option) => (
+                                </label>
+
+
+
+                                <label>
+
+                                    Primeira notificação
+
+                                    <select
+                                        value={notificationBefore}
+                                        onChange={(e) =>
+                                            setNotificationBefore(
+                                                e.target.value
+                                            )
+                                        }
+                                    >
+
+                                        {
+                                            notificationBeforeOptions.map(option => (
 
                                                 <option
                                                     key={option.value}
@@ -353,30 +359,30 @@ function Modal({
                                                     {option.label}
                                                 </option>
 
+                                            ))
+                                        }
+
+                                    </select>
+
+                                </label>
+
+
+
+                                <label>
+
+                                    Repetir
+
+                                    <select
+                                        value={notificationRepeat}
+                                        onChange={(e) =>
+                                            setNotificationRepeat(
+                                                e.target.value
                                             )
-                                        )
-                                    }
+                                        }
+                                    >
 
-                                </select>
-
-                            </label>
-
-                            <label>
-
-                                Repetir
-
-                                <select
-                                    value={notificationRepeat}
-                                    onChange={(e) =>
-                                        setNotificationRepeat(
-                                            e.target.value
-                                        )
-                                    }
-                                >
-
-                                    {
-                                        notificationRepeatOptions.map(
-                                            (option) => (
+                                        {
+                                            notificationRepeatOptions.map(option => (
 
                                                 <option
                                                     key={option.value}
@@ -385,18 +391,23 @@ function Modal({
                                                     {option.label}
                                                 </option>
 
-                                            )
-                                        )
-                                    }
+                                            ))
+                                        }
 
-                                </select>
+                                    </select>
 
-                            </label>
+                                </label>
 
-                        </>
 
-                    )
-                }
+                            </>
+
+                        )
+                    }
+
+
+                </div>
+
+
 
                 <div className={styles.buttons}>
 
@@ -412,17 +423,17 @@ function Modal({
                         )
                     }
 
+
+
                     <button
                         onClick={handleSave}
                     >
-
-                        {
-                            selectedReminder
-                                ? "Salvar alterações"
-                                : "Salvar"
-                        }
-
+                        {selectedReminder
+                            ? "Salvar alterações"
+                            : "Salvar"}
                     </button>
+
+
 
                     <button
                         onClick={() => {
@@ -436,9 +447,12 @@ function Modal({
                         Cancelar
                     </button>
 
+
                 </div>
 
+
             </div>
+
 
         </div>
 

@@ -1,148 +1,126 @@
 import styles from "./Calendar.module.css";
-import { generateCalendar } from "../../utils/generateCalendar";
+
+import generateCalendar from "../../utils/generateCalendar";
+import filterRemindersByDate from "../../utils/filterRemindersByDate";
 
 import CalendarDay from "../CalendarDay/CalendarDay";
-import filterRemindersByDate from "../../utils/filterRemindersByDate";
-import formatDate from "../../utils/formatDate";
 
 function Calendar({
-  reminders,
-  onSelectDate,
-  currentDate,
-  onNextMonth,
-  onPreviousMonth,
-  onToday
+    reminders,
+    onSelectDate,
+    currentDate,
+    onNextMonth,
+    onPreviousMonth,
+    onToday
 }) {
 
     const year = currentDate.getFullYear();
-
     const month = currentDate.getMonth();
+
+    const calendar = generateCalendar(year, month);
+
+    const monthName = currentDate.toLocaleDateString("pt-BR", {
+        month: "long",
+        year: "numeric"
+    });
 
     const today = new Date();
 
-    const { firstWeekDay, totalDays } =
-     generateCalendar(year, month);
+    return (
 
+        <section className={styles.calendar}>
 
-  return (
-    <section className={styles.calendar}>
+            <header className={styles.header}>
 
-      <div className={styles.header}>
+                <button
+                    className={styles.navButton}
+                    onClick={onPreviousMonth}
+                    aria-label="Mês anterior"
+                >
+                    ←
+                </button>
 
-        <button
-            className={styles.navButton}
-            onClick={onPreviousMonth}
-        >
-            ◀
-        </button>
+                <h2>
+                    {monthName}
+                </h2>
 
-        <h2>
-            {currentDate.toLocaleDateString(
-                "pt-BR",
-                {
-                    month: "long",
-                    year: "numeric"
-                }
-            )}
-        </h2>
+                <button
+                    className={styles.navButton}
+                    onClick={onNextMonth}
+                    aria-label="Próximo mês"
+                >
+                    →
+                </button>
 
-        <button
-            className={styles.navButton}
-            onClick={onNextMonth}
-        >
-            ▶
-        </button>
+                <button
+                    className={styles.todayButton}
+                    onClick={onToday}
+                    aria-label="Ir para o mês atual"
+                >
+                    Hoje
+                </button>
 
-        <button
-            className={styles.todayButton}
-            onClick={onToday}
-        >
-            Hoje
-        </button>
-      </div>
+            </header>
 
+            <div className={styles.weekdays}>
 
-      <div className={styles.weekdays}>
-        <span>Dom</span>
-        <span>Seg</span>
-        <span>Ter</span>
-        <span>Qua</span>
-        <span>Qui</span>
-        <span>Sex</span>
-        <span>Sáb</span>
-      </div>
+                <span>Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span>Sáb</span>
 
+            </div>
 
-      <div className={styles.grid}>
+            <div className={styles.grid}>
 
+                {calendar.map((date, index) => {
 
-        {[...Array(firstWeekDay)].map((_, index) => (
-          <div
-            key={`empty-${index}`}
-            className={styles.empty}
-          />
-        ))}
+                    if (!date) {
 
+                        return (
+                            <div
+                                key={index}
+                                className={styles.empty}
+                            />
+                        );
 
+                    }
 
-        {[...Array(totalDays)].map((_, index) => {
+                    const remindersOfDay =
+                        filterRemindersByDate(
+                            reminders,
+                            date
+                        );
 
-          const day = index + 1;
+                    const isToday =
+                        date.toDateString() ===
+                        today.toDateString();
 
+                    return (
 
-          const isToday =
-            day === today.getDate() &&
-            month === today.getMonth() &&
-            year === today.getFullYear();
+                        <CalendarDay
+                            key={date.toISOString()}
+                            day={date.getDate()}
+                            reminders={remindersOfDay}
+                            isToday={isToday}
+                            onClick={() =>
+                                onSelectDate(date)
+                            }
+                        />
 
+                    );
 
-          const currentDate = formatDate(
-              new Date(year, month, day)
-          );
+                })}
 
+            </div>
 
+        </section>
 
-            const remindersOfDay = filterRemindersByDate(
-              reminders,
-              new Date(year, month, day)
-            )
+    );
 
-
-          return (
-
-            <CalendarDay
-              key={day}
-              day={day}
-              isToday={isToday}
-              reminders={remindersOfDay}
-
-              onClick={() => {
-
-                const date = new Date(
-                  year,
-                  month,
-                  day
-                );
-                console.log("Calendar clicou:", date);
-                console.log("Dia:", date.getDate());
-
-
-                onSelectDate(date);
-
-              }}
-            />
-
-          );
-
-
-        })}
-
-
-      </div>
-
-
-    </section>
-  );
 }
 
 export default Calendar;
