@@ -11,42 +11,9 @@ import {
 let schedulerInterval = null;
 
 
-/**
- * Inicia o Scheduler
- */
-export function startNotificationScheduler(
-    interval = 30000
-) {
 
-    // Evita múltiplos schedulers rodando
-    if (schedulerInterval) {
-        console.warn(
-            "Notification Scheduler já está ativo."
-        );
-
-        return;
-    }
-
-
-    console.log(
-        "Notification Scheduler iniciado."
-    );
-
-
-    schedulerInterval = setInterval(() => {
-
-        runNotificationCycle();
-
-    }, interval);
-
-}
-
-
-
-/**
- * Executa um ciclo de verificação
- */
 function runNotificationCycle() {
+
 
     const reminders = getReminders();
 
@@ -54,8 +21,9 @@ function runNotificationCycle() {
     let hasChanges = false;
 
 
-    const updatedReminders = reminders.map(
-        reminder => {
+    const updatedReminders =
+        reminders.map(reminder => {
+
 
             const result =
                 processReminderNotifications(
@@ -63,18 +31,20 @@ function runNotificationCycle() {
                 );
 
 
-            if (result.updated) {
+            if(result.updated){
+
                 hasChanges = true;
+
             }
 
 
             return result.reminder;
 
-        }
-    );
+        });
 
 
-    if (hasChanges) {
+
+    if(hasChanges){
 
         saveReminders(
             updatedReminders
@@ -86,13 +56,86 @@ function runNotificationCycle() {
 
 
 
-/**
- * Para o Scheduler
- */
-export function stopNotificationScheduler() {
 
-    if (!schedulerInterval) {
+function handleVisibilityChange(){
+
+
+    if(
+        document.visibilityState === "visible"
+    ){
+
+        console.log(
+            "Aplicativo voltou. Verificando notificações..."
+        );
+
+
+        runNotificationCycle();
+
+    }
+
+}
+
+
+
+
+
+export function startNotificationScheduler(
+    interval = 30000
+){
+
+
+    if(schedulerInterval){
+
+        console.warn(
+            "Notification Scheduler já está ativo."
+        );
+
         return;
+
+    }
+
+
+    console.log(
+        "Notification Scheduler iniciado."
+    );
+
+
+    // Primeira verificação imediata
+
+    runNotificationCycle();
+
+
+
+    schedulerInterval =
+        setInterval(()=>{
+
+
+            runNotificationCycle();
+
+
+        }, interval);
+
+
+
+    document.addEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+    );
+
+
+}
+
+
+
+
+
+export function stopNotificationScheduler(){
+
+
+    if(!schedulerInterval){
+
+        return;
+
     }
 
 
@@ -104,8 +147,15 @@ export function stopNotificationScheduler() {
     schedulerInterval = null;
 
 
+    document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+    );
+
+
     console.log(
         "Notification Scheduler parado."
     );
+
 
 }
