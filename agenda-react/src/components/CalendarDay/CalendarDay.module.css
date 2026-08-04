@@ -5,192 +5,87 @@
 
 .day {
 
-    width: 100%;
+    width:100%;
 
-    aspect-ratio: 1;
+    aspect-ratio:1;
 
-    min-height: 52px;
+    min-height:0;
 
-    border: 1px solid var(--border-color);
+    border:1px solid var(--border-color);
 
-    border-radius: 12px;
+    border-radius:10px;
 
-    background: var(--surface);
+    background:var(--surface);
 
-    color: var(--text-primary);
+    color:var(--text-primary);
 
-    display: flex;
+    display:flex;
 
-    flex-direction: column;
+    flex-direction:column;
 
-    justify-content: center;
+    justify-content:center;
 
-    align-items: center;
+    align-items:center;
 
-    gap: .2rem;
+    gap:.25rem;
 
-    cursor: pointer;
+    cursor:pointer;
 
     transition:
+
         transform .25s ease,
+
         box-shadow .25s ease,
+
         background-color .25s ease;
 
-    font-size: clamp(.85rem, 2vw, 1rem);
 
-    font-weight: 600;
+    padding:.2rem;
 
-    padding: .25rem;
-
-    overflow: hidden;
+    overflow:hidden;
 
 }
+
 
 /* ==========================================================
    NÚMERO DO DIA
 ========================================================== */
 
-.day span {
+.dayNumber {
 
-    line-height: 1;
+    line-height:1;
 
-}
-
-/* ==========================================================
-   QUANTIDADE DE LEMBRETES
-========================================================== */
-
-.day small {
-
-    width: 100%;
-
-    font-size: clamp(.55rem, 1.8vw, .72rem);
-
-    text-align: center;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    opacity: .9;
-
-}
-
-/* ==========================================================
-   HOVER
-========================================================== */
-
-.day:hover {
-
-    transform: translateY(-3px);
-
-    box-shadow: 0 8px 18px rgba(0,0,0,.12);
-
-}
-
-/* ==========================================================
-   CLICK
-========================================================== */
-
-.day:active {
-
-    transform: scale(.96);
-
-}
-
-/* ==========================================================
-   ACESSIBILIDADE
-========================================================== */
-
-.day:focus-visible {
-
-    outline: 3px solid var(--color-primary);
-
-    outline-offset: 3px;
-
-}
-
-/* ==========================================================
-   DIA ATUAL
-========================================================== */
-
-.today {
-
-    outline: 3px solid var(--color-primary);
-
-    outline-offset: 2px;
-
-}
-
-/* ==========================================================
-   TABLET
-========================================================== */
-
-@media (min-width:768px){
-
-    .day{
-
-        min-height:72px;
-
-        border-radius:14px;
-
-    }
-
-}
-
-/* ==========================================================
-   DESKTOP
-========================================================== */
-
-@media (min-width:1024px){
-
-    .day{
-
-        min-height:90px;
-
-    }
-
-}
-
-/* ==========================================================
-   DAY NUMBER
-========================================================== */
-
-.dayNumber{
-
-    font-size: clamp(.9rem,2vw,1.1rem);
+    font-size:1rem;
 
     font-weight:700;
 
 }
 
+
 /* ==========================================================
    BADGE
 ========================================================== */
 
-.badge{
+.badge {
 
     display:flex;
 
     align-items:center;
 
-    gap:.3rem;
+    justify-content:center;
 
-    margin-top:.2rem;
+    gap:.25rem;
 
-    padding:.15rem .45rem;
+    padding:.1rem .35rem;
 
     border-radius:999px;
 
     background:rgba(255,255,255,.18);
 
-    backdrop-filter:blur(4px);
-
 }
 
-.dot{
+
+.dot {
 
     width:6px;
 
@@ -202,14 +97,126 @@
 
 }
 
-.badge small{
+
+.badge small {
 
     color:#ffffff;
 
-    font-size:.68rem;
+    font-size:.65rem;
 
     font-weight:700;
 
-    line-height:1;
+}
+
+
+/* ==========================================================
+   HOVER
+========================================================== */
+
+.day:hover {
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.12);
+
+}
+
+
+.day:active {
+
+    transform:scale(.96);
+
+}
+
+
+.day:focus-visible {
+
+    outline:3px solid var(--color-primary);
+
+    outline-offset:3px;
+
+}
+
+
+/* ==========================================================
+   DIA ATUAL
+========================================================== */
+
+.today {
+
+    outline:3px solid var(--color-primary);
+
+    outline-offset:2px;
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (min-width:768px) {
+
+
+    .day {
+
+        border-radius:14px;
+
+    }
+
+
+    .dayNumber {
+
+        font-size:1.15rem;
+
+    }
+
+}
+
+
+/* ==========================================================
+   DESKTOP
+========================================================== */
+
+@media (min-width:1024px) {
+
+
+    .dayNumber {
+
+        font-size:1.3rem;
+
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE PEQUENO
+========================================================== */
+
+@media (max-width:380px) {
+
+
+    .day {
+
+        border-radius:8px;
+
+        padding:.15rem;
+
+    }
+
+
+    .dayNumber {
+
+        font-size:.95rem;
+
+    }
+
+
+    .badge small {
+
+        font-size:.55rem;
+
+    }
 
 }

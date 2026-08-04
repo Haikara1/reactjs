@@ -4,11 +4,19 @@
 ========================================================== */
 
 .calendar {
+
     width: 100%;
+
     max-width: 1200px;
+
     margin: 0 auto;
-    padding: 1rem;
+
+    padding: .75rem;
+
     color: var(--text-primary);
+
+    overflow: hidden;
+
 }
 
 
@@ -124,16 +132,6 @@
 }
 
 
-.navButton:focus-visible,
-.todayButton:focus-visible {
-
-    outline: 3px solid var(--color-primary);
-
-    outline-offset: 3px;
-
-}
-
-
 /* ==========================================================
    WEEKDAYS
 ========================================================== */
@@ -142,7 +140,7 @@
 
     display: grid;
 
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 
     gap: .35rem;
 
@@ -167,9 +165,11 @@
 
     display: grid;
 
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 
-    gap: .4rem;
+    gap: .35rem;
+
+    width: 100%;
 
 }
 
@@ -185,12 +185,12 @@
    TABLET
 ========================================================== */
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 
 
     .calendar {
 
-        padding: 1.5rem;
+        padding:1.5rem;
 
     }
 
@@ -199,23 +199,21 @@
 
         flex-wrap: nowrap;
 
-        gap: 1rem;
+        gap:1rem;
 
     }
 
 
     .header h2 {
 
-        flex: initial;
-
-        min-width: auto;
+        flex:initial;
 
     }
 
 
     .grid {
 
-        gap: .65rem;
+        gap:.65rem;
 
     }
 
@@ -226,19 +224,19 @@
    DESKTOP
 ========================================================== */
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
 
 
     .calendar {
 
-        padding: 2rem;
+        padding:2rem;
 
     }
 
 
     .grid {
 
-        gap: .8rem;
+        gap:.8rem;
 
     }
 
@@ -246,15 +244,15 @@
 
 
 /* ==========================================================
-   DESKTOP LARGE
+   DESKTOP GRANDE
 ========================================================== */
 
-@media (min-width: 1440px) {
+@media (min-width:1440px) {
 
 
     .calendar {
 
-        max-width: 1300px;
+        max-width:1300px;
 
     }
 
@@ -265,35 +263,28 @@
    MOBILE PEQUENO
 ========================================================== */
 
-@media (max-width: 380px) {
+@media (max-width:480px) {
 
 
-    .header {
+    .calendar {
 
-        gap: .5rem;
-
-    }
-
-
-    .navButton {
-
-        width: 38px;
-
-        height: 38px;
+        padding:.5rem;
 
     }
 
 
-    .todayButton {
+    .grid {
 
-        width: 100%;
+        gap:.25rem;
 
     }
 
 
-    .header h2 {
+    .weekdays {
 
-        font-size: 1.15rem;
+        gap:.25rem;
+
+        font-size:.7rem;
 
     }
 
