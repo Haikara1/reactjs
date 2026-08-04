@@ -1,114 +1,236 @@
+/* ==========================================================
+   CALENDAR
+   MOBILE FIRST
+========================================================== */
+
+.calendar {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    color: var(--text-primary);
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
 .header {
 
-  display: flex;
+    display: flex;
 
-  align-items: center;
+    flex-wrap: wrap;
 
-  justify-content: center;
+    justify-content: center;
 
-  gap: 20px;
+    align-items: center;
 
-  margin-bottom: 25px;
+    gap: .75rem;
 
-  flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 
 }
 
-
 .header h2 {
 
-  margin: 0;
+    flex: 1 1 100%;
 
-  text-transform: capitalize;
+    text-align: center;
 
-  font-size: 1.8rem;
+    margin: 0;
 
-  color: var(--text-primary);
+    font-size: clamp(1.3rem, 4vw, 2rem);
+
+    font-weight: 700;
+
+    text-transform: capitalize;
+
+    color: var(--text-primary);
+
+}
+
+/* ==========================================================
+   BOTÕES
+========================================================== */
+
+.navButton,
+.todayButton {
+
+    border: none;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+
+    font-weight: 600;
+
+    color: white;
 
 }
 
 .navButton {
 
-  width: 40px;
+    width: 44px;
 
-  height: 40px;
+    height: 44px;
 
-  border: none;
+    border-radius: 50%;
 
-  border-radius: 50%;
+    background: var(--color-primary);
 
-  background: var(--color-primary);
-
-  color: white;
+    font-size: 1rem;
 
 }
-
-
-.navButton:hover {
-
-  transform: scale(1.1);
-
-}
-
 
 .todayButton {
 
-  width: 90px;
+    min-height: 44px;
 
-  height: 38px;
+    padding: 0 .9rem;
 
-  border: none;
+    border-radius: 12px;
 
-  border-radius: 10px;
+    background: var(--color-success);
 
-  background: var(--color-success);
-
-  color: white;
+    font-size: .9rem;
 
 }
 
-
+.navButton:hover,
 .todayButton:hover {
 
-  opacity: 0.85;
+    transform: translateY(-2px);
+
+    filter: brightness(.95);
 
 }
 
+.navButton:active,
+.todayButton:active {
 
-.calendar {
+    transform: scale(.97);
 
-    width: 100%;
-
-    max-width: 900px;
-
-    margin: auto;
-
-    padding: var(--spacing-lg);
-
-    color: var(--text-primary);
 }
 
-.calendar h2 {
-    margin-bottom: 24px;
-    color: var(--text-primary);
-    text-transform: capitalize;
+.navButton:focus-visible,
+.todayButton:focus-visible {
+
+    outline: 3px solid var(--color-primary);
+
+    outline-offset: 3px;
+
 }
+
+/* ==========================================================
+   WEEKDAYS
+========================================================== */
 
 .weekdays {
+
     display: grid;
-    grid-template-columns: repeat(7,1fr);
-    margin-bottom: 10px;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    gap: .35rem;
+
+    margin-bottom: .5rem;
+
     text-align: center;
-    font-weight: 600;
+
+    font-size: clamp(.75rem, 2vw, .95rem);
+
+    font-weight: 700;
+
     color: var(--text-secondary);
+
 }
 
+/* ==========================================================
+   GRID
+========================================================== */
+
 .grid {
+
     display: grid;
-    grid-template-columns: repeat(7,1fr);
-    gap: 10px;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    gap: .4rem;
+
 }
 
 .empty {
+
     aspect-ratio: 1;
+
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (min-width: 768px) {
+
+    .calendar {
+
+        padding: 1.5rem;
+
+    }
+
+    .header {
+
+        flex-wrap: nowrap;
+
+        justify-content: center;
+
+        gap: 1rem;
+
+    }
+
+    .header h2 {
+
+        flex: initial;
+
+    }
+
+    .grid {
+
+        gap: .65rem;
+
+    }
+
+}
+
+/* ==========================================================
+   DESKTOP
+========================================================== */
+
+@media (min-width: 1024px) {
+
+    .calendar {
+
+        padding: 2rem;
+
+    }
+
+    .grid {
+
+        gap: .8rem;
+
+    }
+
+}
+
+/* ==========================================================
+   DESKTOP LARGE
+========================================================== */
+
+@media (min-width: 1440px) {
+
+    .calendar {
+
+        max-width: 1300px;
+
+    }
+
 }

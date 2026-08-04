@@ -1,145 +1,103 @@
+/* ==========================================================
+   REMINDER LIST
+   MOBILE FIRST
+========================================================== */
+
 .list {
-  width: 90%;
-  max-width: 600px;
 
-  margin: 30px auto;
+    width: min(100% - 2rem, 900px);
 
-  padding: 20px;
+    margin: 2rem auto;
 
-  background: var(--surface);
-  color: var(--text-primary);
+    padding: 1.25rem;
 
-  border-radius: 16px;
+    display: flex;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    flex-direction: column;
 
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    gap: 1rem;
+
+    background: var(--surface);
+
+    color: var(--text-primary);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+
 }
 
+/* ==========================================================
+   CARD
+========================================================== */
 
 .item {
 
-  display: flex;
+    display: flex;
 
-  justify-content: space-between;
+    flex-direction: column;
 
-  align-items: center;
+    gap: 1rem;
 
-  gap: 20px;
+    padding: 1rem;
 
-  padding: 15px;
+    background: var(--background);
 
-  border-radius: 12px;
+    border: 1px solid var(--border-color);
 
-  background: var(--surface);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
+    border-left: 5px solid var(--color-primary);
 
-  border-left: 5px solid #6366F1;
+    border-radius: 16px;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
 }
 
+.item:hover {
 
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 24px rgba(0,0,0,.08);
+
+}
+
+/* ==========================================================
+   TÍTULO
+========================================================== */
 
 .item h3 {
 
-  margin: 0;
+    margin: 0;
 
-  font-size: 1.1rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
 
-  color: var(--text-primary);
+    color: var(--text-primary);
 
 }
 
-
+/* ==========================================================
+   DESCRIÇÃO
+========================================================== */
 
 .item p {
 
-  margin: 6px 0 0;
+    margin: .25rem 0;
 
-  color: #64748b;
+    color: var(--text-secondary);
 
-  font-size: 0.9rem;
+    line-height: 1.5;
 
-}
-
-
-
-.item button {
-
-  margin-left: 10px;
-
-  border: none;
-
-  padding: 8px 12px;
-
-  border-radius: 8px;
-
-  cursor: pointer;
-
-  font-size: 0.85rem;
+    word-break: break-word;
 
 }
 
-
-
-.item button:first-child {
-
-  background: #6366F1;
-
-  color: white;
-
-}
-
-
-
-.item button:last-child {
-
-  background: #ef4444;
-
-  color: white;
-
-}
-
-
-
-.item button:hover {
-
-  opacity: 0.85;
-
-}
-
-
-
-.newButton {
-
-  margin-top: 10px;
-  margin-left: 10px;
-
-  padding: 12px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: #22c55e;
-
-  color: white;
-
-  font-size: 1rem;
-
-  cursor: pointer;
-
-}
-
-
-
-.newButton:hover {
-
-  opacity: 0.85;
-
-}
+/* ==========================================================
+   NOTIFICAÇÕES
+========================================================== */
 
 .notificationInfo {
 
@@ -147,12 +105,124 @@
 
     flex-direction: column;
 
-    gap: .3rem;
+    gap: .35rem;
 
-    margin-top: .75rem;
+    margin-top: .5rem;
 
     font-size: .9rem;
 
     color: var(--text-secondary);
+
+}
+
+/* ==========================================================
+   BOTÕES
+========================================================== */
+
+.item button {
+
+    width: 100%;
+
+    min-height: 44px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: .95rem;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+}
+
+/* Editar */
+
+.item button:nth-child(1) {
+
+    background: var(--color-primary);
+
+    color: white;
+
+}
+
+/* Excluir */
+
+.item button:nth-child(2) {
+
+    background: var(--color-danger);
+
+    color: white;
+
+}
+
+/* Novo lembrete */
+
+.newButton {
+
+    background: var(--color-success);
+
+    color: white;
+
+}
+
+.item button:hover {
+
+    transform: translateY(-2px);
+
+    opacity: .95;
+
+}
+
+.item button:active {
+
+    transform: scale(.98);
+
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (min-width:768px){
+
+    .item{
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        align-items: flex-start;
+
+    }
+
+    .item > div:first-child{
+
+        flex: 1;
+
+    }
+
+    .notificationInfo{
+
+        min-width: 220px;
+
+    }
+
+}
+
+/* ==========================================================
+   DESKTOP
+========================================================== */
+
+@media (min-width:1024px){
+
+    .list{
+
+        padding: 2rem;
+
+    }
 
 }

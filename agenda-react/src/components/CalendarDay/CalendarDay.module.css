@@ -1,55 +1,155 @@
-.day{
+/* ==========================================================
+   CALENDAR DAY
+   MOBILE FIRST
+========================================================== */
 
-    width:100%;
+.day {
 
-    aspect-ratio:1;
+    width: 100%;
 
-    border:1px solid var(--border-color);
+    aspect-ratio: 1;
 
-    border-radius:12px;
+    min-height: 52px;
 
-    background:var(--surface);
+    border: 1px solid var(--border-color);
 
-    color:var(--text-primary);
+    border-radius: 12px;
 
-    cursor:pointer;
+    background: var(--surface);
 
-    transition:.2s;
+    color: var(--text-primary);
 
-    display:flex;
+    display: flex;
+
     flex-direction: column;
 
-    justify-content:center;
+    justify-content: center;
 
-    align-items:center;
+    align-items: center;
 
-    font-size:1rem;
+    gap: .2rem;
 
-    font-weight:600;
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background-color .25s ease;
+
+    font-size: clamp(.85rem, 2vw, 1rem);
+
+    font-weight: 600;
+
+    padding: .25rem;
+
+    overflow: hidden;
 
 }
+
+/* ==========================================================
+   NÚMERO DO DIA
+========================================================== */
+
+.day span {
+
+    line-height: 1;
+
+}
+
+/* ==========================================================
+   QUANTIDADE DE LEMBRETES
+========================================================== */
 
 .day small {
-  font-size: 0.7rem;
-  margin-top: 4px;
-  overflow: hidden;
-  max-width: 90%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+    width: 100%;
+
+    font-size: clamp(.55rem, 1.8vw, .72rem);
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    opacity: .9;
+
 }
 
-.day:hover{
+/* ==========================================================
+   HOVER
+========================================================== */
 
-    transform:translateY(-2px);
+.day:hover {
 
-    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 18px rgba(0,0,0,.12);
 
 }
 
-.today{
+/* ==========================================================
+   CLICK
+========================================================== */
 
-    outline:3px solid var(--color-primary);
+.day:active {
 
-    outline-offset:2px;
+    transform: scale(.96);
+
+}
+
+/* ==========================================================
+   ACESSIBILIDADE
+========================================================== */
+
+.day:focus-visible {
+
+    outline: 3px solid var(--color-primary);
+
+    outline-offset: 3px;
+
+}
+
+/* ==========================================================
+   DIA ATUAL
+========================================================== */
+
+.today {
+
+    outline: 3px solid var(--color-primary);
+
+    outline-offset: 2px;
+
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (min-width:768px){
+
+    .day{
+
+        min-height:72px;
+
+        border-radius:14px;
+
+    }
+
+}
+
+/* ==========================================================
+   DESKTOP
+========================================================== */
+
+@media (min-width:1024px){
+
+    .day{
+
+        min-height:90px;
+
+    }
 
 }
